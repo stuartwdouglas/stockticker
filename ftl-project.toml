@@ -1,0 +1,8 @@
+name = "stockticker"
+secrets-provider = "inline"
+config-provider = "inline"
+ftl-min-version = "0.427.1"
+hermit = true
+
+[commands]
+  startup = [""]

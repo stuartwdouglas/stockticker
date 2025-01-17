@@ -1,0 +1,5 @@
+{
+  "realm": "stockticker",
+  "ftl-min-version": "0.427.1",
+  "default-profile": "local"
+}
