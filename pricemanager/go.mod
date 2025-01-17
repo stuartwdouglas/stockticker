@@ -2,7 +2,7 @@ module ftl/pricemanager
 
 go 1.23.4
 
-require github.com/block/ftl v0.427.1
+require github.com/block/ftl v0.427.2
 
 require (
 	al.essio.dev/pkg/shellescape v1.5.1 // indirect

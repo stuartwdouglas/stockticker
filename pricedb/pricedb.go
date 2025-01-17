@@ -24,7 +24,7 @@ func (PriceDatasource) Name() string { return "prices" }
 //ftl:verb export
 func SavePrice(ctx context.Context, price Price, db ftl.DatabaseHandle[PriceDatasource]) error {
 	var database *sql.DB = db.Get(ctx) // Get the database connection.
-	_, err := database.Exec("INSERT INTO prices (code, price, timestamp, currency) VALUES (?, ?, ?, ?)", price.Code, price.Price, price.Time, price.Currency)
+	_, err := database.ExecContext(ctx, "INSERT INTO prices (code, price, timestamp, currency) VALUES (?, ?, ?, ?)", price.Code, price.Price, price.Time, price.Currency)
 	return err
 }
 
@@ -40,12 +40,19 @@ func QueryPrices(ctx context.Context, db ftl.DatabaseHandle[PriceDatasource]) ([
 	var items []Price
 	for rows.Next() {
 		var i Price
+		var timestamp []uint8
 		if err := rows.Scan(
 			&i.Code,
 			&i.Price,
-			&i.Time,
+			&timestamp,
 			&i.Currency,
 		); err != nil {
+			return nil, err
+		}
+		// Convert the timestamp to a string and then parse it into a time.Time object
+		timestampStr := string(timestamp)
+		i.Time, err = time.Parse("2006-01-02 15:04:05", timestampStr)
+		if err != nil {
 			return nil, err
 		}
 		items = append(items, i)
