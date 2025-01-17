@@ -29,19 +29,22 @@ func SavePrice(ctx context.Context, price Price, db ftl.DatabaseHandle[PriceData
 }
 
 //ftl:verb export
-func QueryPrices(ctx context.Context, db ftl.DatabaseHandle[PriceDatasource]) ([]string, error) {
+func QueryPrices(ctx context.Context, db ftl.DatabaseHandle[PriceDatasource]) ([]Price, error) {
 	var database *sql.DB = db.Get(ctx) // Get the database connection.
 	// The following code is standard golang SQL code, it has nothing FTL specific.
-	rows, err := database.QueryContext(ctx, "SELECT data FROM requests")
+	rows, err := database.QueryContext(ctx, "SELECT code, price, timestamp, currency FROM prices")
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []string
+	var items []Price
 	for rows.Next() {
-		var i string
+		var i Price
 		if err := rows.Scan(
-			&i,
+			&i.Code,
+			&i.Price,
+			&i.Time,
+			&i.Currency,
 		); err != nil {
 			return nil, err
 		}
