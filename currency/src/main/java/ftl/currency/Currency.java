@@ -1,7 +1,5 @@
 package ftl.currency;
 
-import java.math.BigDecimal;
-
 import xyz.block.ftl.Export;
 import xyz.block.ftl.Verb;
 
