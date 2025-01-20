@@ -16,6 +16,6 @@ type Price struct {
 type Prices = ftl.TopicHandle[Price, ftl.SinglePartitionMap[Price]]
 
 //ftl:cron 3s
-func Tick(ctx context.Context, prices Prices) error {
+func NasdaqTick(ctx context.Context, prices Prices) error {
 	return prices.Publish(ctx, Price{Code: "FOO", Price: rand.Float64() * 100})
 }

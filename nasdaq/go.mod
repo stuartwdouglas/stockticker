@@ -2,7 +2,7 @@ module ftl/nasdaq
 
 go 1.23.4
 
-require github.com/block/ftl v0.428.1
+require github.com/block/ftl v0.429.0
 
 require (
 	al.essio.dev/pkg/shellescape v1.5.1 // indirect
