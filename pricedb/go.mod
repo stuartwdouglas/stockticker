@@ -4,7 +4,7 @@ go 1.23.4
 
 require (
 	github.com/alecthomas/types v0.17.0
-	github.com/block/ftl v0.431.0
+	github.com/block/ftl v0.431.1
 )
 
 require (
