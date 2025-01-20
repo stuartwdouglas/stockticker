@@ -1,1 +1,7 @@
 **/.ftl
+.ftl-runner-info
+.ftl.lock
+.cache
+target
+go.work
+go.work.sum
