@@ -1,0 +1,13 @@
+go 1.23.4
+
+use (
+	.
+    /Users/sdouglas/go/src/github.com/block/ftl/.ftl/go/modules/builtin
+    /Users/sdouglas/go/src/github.com/block/ftl/.ftl/go/modules/currency
+    /Users/sdouglas/go/src/github.com/block/ftl/.ftl/go/modules/nasdaq
+    /Users/sdouglas/go/src/github.com/block/ftl/.ftl/go/modules/nyse
+    /Users/sdouglas/go/src/github.com/block/ftl/.ftl/go/modules/pricemanager
+
+    .ftl/go/main
+
+)

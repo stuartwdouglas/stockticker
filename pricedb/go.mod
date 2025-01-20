@@ -2,7 +2,10 @@ module ftl/pricedb
 
 go 1.23.4
 
-require github.com/block/ftl v0.429.0
+require (
+	github.com/alecthomas/types v0.17.0
+	github.com/block/ftl v0.431.0
+)
 
 require (
 	al.essio.dev/pkg/shellescape v1.5.1 // indirect
@@ -15,7 +18,6 @@ require (
 	github.com/alecthomas/concurrency v0.0.2 // indirect
 	github.com/alecthomas/kong v1.6.0 // indirect
 	github.com/alecthomas/participle/v2 v2.1.1 // indirect
-	github.com/alecthomas/types v0.17.0 // indirect
 	github.com/benbjohnson/clock v1.3.5 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/danieljoos/wincred v1.2.2 // indirect
@@ -34,6 +36,7 @@ require (
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/jpillora/backoff v1.0.0 // indirect
 	github.com/kballard/go-shellquote v0.0.0-20180428030007-95032a82bc51 // indirect
+	github.com/lib/pq v1.10.9 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/multiformats/go-base36 v0.2.0 // indirect
 	github.com/puzpuzpuz/xsync/v3 v3.4.0 // indirect
