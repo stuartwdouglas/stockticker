@@ -6,18 +6,17 @@ import (
 
 	"github.com/block/ftl/go-runtime/ftl"
 
+	"ftl/nasdaq"
 	"ftl/pricedb"
-	"ftl/ticker"
 )
 
-//ftl:subscribe ticker.prices from=beginning
-func Prices(ctx context.Context, in ticker.Price, savePrice pricedb.SavePriceClient) error {
+//ftl:subscribe nasdaq.prices from=latest
+func Prices(ctx context.Context, in nasdaq.Price, savePrice pricedb.SavePriceClient) error {
 	ftl.LoggerFromContext(ctx).Infof("Received price: %v", in)
-	savePrice(ctx, pricedb.Price{
+	return savePrice(ctx, pricedb.Price{
 		Code:     in.Code,
 		Price:    in.Price,
 		Time:     time.Now(),
 		Currency: "USD",
 	})
-	return nil
 }
