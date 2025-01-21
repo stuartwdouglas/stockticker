@@ -14,7 +14,7 @@ data class Price(val code: String, val price: Double, val timestamp: Long = Syst
 interface PriceTopic : WriteableTopic<Price, SinglePartitionMapper>
 
 @Export
-@Cron("1s")
+@Cron("3s")
 fun tick(priceTopic: PriceTopic) {
     val p = Price("XYZ", Random.nextDouble() * 10)
     priceTopic.publish(p)

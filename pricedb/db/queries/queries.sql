@@ -1,4 +1,4 @@
--- name: StorePrice :exec
+-- name: InsertPrice :exec
 INSERT INTO prices (code, price, timestamp, currency) VALUES (?, ?, ?, ?);
 
 -- name: LoadPrices :many
