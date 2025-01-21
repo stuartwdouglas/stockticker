@@ -10,7 +10,7 @@ import (
 	"ftl/ticker"
 )
 
-//ftl:subscribe ticker.prices from=beginning
+//ftl:subscribe ticker.prices from=latest
 func Prices(ctx context.Context, in ticker.Price, savePrice pricedb.SavePriceClient) error {
 	ftl.LoggerFromContext(ctx).Infof("Received price: %v", in)
 	savePrice(ctx, pricedb.Price{
