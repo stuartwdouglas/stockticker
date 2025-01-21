@@ -11,6 +11,8 @@ public class Currency {
             return request.amount();
         } else if (request.to().equals("AUD") && request.from().equals("USD")) {
             return request.amount() * 1.5;
+        }  else if (request.to().equals("USD") && request.from().equals("AUD")) {
+            return request.amount() / 1.5;
         } else {
             throw new IllegalArgumentException("Unknown currency pair: " + request.to() + " " + request.from());
         }
