@@ -2,7 +2,6 @@ package pricedb
 
 import (
 	"context"
-	"database/sql"
 	"time"
 
 	"github.com/block/ftl/go-runtime/ftl" // Import the FTL SDK.
@@ -22,46 +21,29 @@ type PriceDatasource struct {
 func (PriceDatasource) Name() string { return "prices" }
 
 //ftl:verb export
-func SavePrice(ctx context.Context, price Price, db ftl.DatabaseHandle[PriceDatasource]) error {
-	var database *sql.DB = db.Get(ctx) // Get the database connection.
-	_, err := database.ExecContext(ctx, "INSERT INTO prices (code, price, timestamp, currency) VALUES (?, ?, ?, ?)", price.Code, price.Price, price.Time, price.Currency)
-	return err
+func SavePrice(ctx context.Context, price Price, client StorePriceClient) error {
+	return client(ctx, StorePriceQuery{
+		Code:      price.Code,
+		Price:     price.Price,
+		Timestamp: price.Time,
+		Currency:  "USD",
+	})
 }
 
 //ftl:verb export
-func QueryPrices(ctx context.Context, db ftl.DatabaseHandle[PriceDatasource]) ([]Price, error) {
-	var database *sql.DB = db.Get(ctx) // Get the database connection.
-	// The following code is standard golang SQL code, it has nothing FTL specific.
-	rows, err := database.QueryContext(ctx, "SELECT code, price, timestamp, currency FROM prices")
+func QueryPrices(ctx context.Context, client LoadPricesClient) ([]Price, error) {
+	prices, err := client(ctx)
 	if err != nil {
 		return nil, err
 	}
-	defer rows.Close()
 	var items []Price
-	for rows.Next() {
-		var i Price
-		var timestamp []uint8
-		if err := rows.Scan(
-			&i.Code,
-			&i.Price,
-			&timestamp,
-			&i.Currency,
-		); err != nil {
-			return nil, err
-		}
-		// Convert the timestamp to a string and then parse it into a time.Time object
-		timestampStr := string(timestamp)
-		i.Time, err = time.Parse("2006-01-02 15:04:05", timestampStr)
-		if err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
+	for _, i := range prices {
+		items = append(items, Price{
+			Code:     i.Code,
+			Price:    i.Price,
+			Time:     i.Timestamp,
+			Currency: i.Currency,
+		})
 	}
 	return items, nil
 }
