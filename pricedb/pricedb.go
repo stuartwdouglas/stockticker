@@ -21,29 +21,11 @@ type PriceDatasource struct {
 func (PriceDatasource) Name() string { return "prices" }
 
 //ftl:verb export
-func SavePrice(ctx context.Context, price Price, client StorePriceClient) error {
-	return client(ctx, StorePriceQuery{
+func SavePrice(ctx context.Context, price Price, client InsertPriceClient) error {
+	return client(ctx, InsertPriceQuery{
 		Code:      price.Code,
 		Price:     price.Price,
 		Timestamp: price.Time,
 		Currency:  "USD",
 	})
-}
-
-//ftl:verb export
-func QueryPrices(ctx context.Context, client LoadPricesClient) ([]Price, error) {
-	prices, err := client(ctx)
-	if err != nil {
-		return nil, err
-	}
-	var items []Price
-	for _, i := range prices {
-		items = append(items, Price{
-			Code:     i.Code,
-			Price:    i.Price,
-			Time:     i.Timestamp,
-			Currency: i.Currency,
-		})
-	}
-	return items, nil
 }
