@@ -10,6 +10,7 @@ interface AsxPrice : WriteableTopic<Price, SinglePartitionMapper>
 
 @Cron("3s")
 fun tick(asxPrice: AsxPrice) {
-    val p = Price("ASX", Random.nextDouble() * 10, System.currentTimeMillis())
+    var price = Random.nextDouble() * 10
+    val p = Price("ASX", price, System.currentTimeMillis())
     asxPrice.publish(p)
 }
