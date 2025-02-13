@@ -1,1 +1,7 @@
 **/.ftl
+target
+*.iml
+.cache
+.vscode
+.idea
+.ftl.lock

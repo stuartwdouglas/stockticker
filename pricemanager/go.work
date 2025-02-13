@@ -1,0 +1,12 @@
+go 1.23.4
+
+use (
+	.
+    /Users/sdouglas/stockticker/.ftl/go/modules/builtin
+    /Users/sdouglas/stockticker/.ftl/go/modules/currency
+    /Users/sdouglas/stockticker/.ftl/go/modules/pricedb
+    /Users/sdouglas/stockticker/.ftl/go/modules/ticker
+
+    .ftl/go/main
+
+)
